@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class UserCheck {
@@ -11,6 +12,12 @@ public class UserCheck {
         User user = writeUsername();
         ArrayList<User> listUser = getUser();
         checkUser(listUser, user);
+        try {
+            Field field = user.getClass().getDeclaredField("username");
+            System.out.println(field);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void checkUser(ArrayList<User> listUser, User user) {
@@ -73,7 +80,7 @@ public class UserCheck {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        return new User(0, username, password, null, null, null);
+        return new User( username, password, null, null, null);
     }
 
 
